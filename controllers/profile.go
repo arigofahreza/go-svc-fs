@@ -19,6 +19,15 @@ func InitProfileController(db *supabase.Client) *ProfileController {
 	}
 }
 
+// @Summary Add Pictures
+// @Description add one picture for one user
+// @Param username formData string true "username"
+// @Param image formData file true "image"
+// @Tags Profile
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} object{code=string,message=string} "ok"
+// @Router /api/v1/profile/image [post]
 func (controller *ProfileController) AddProfilePicturesControllers(c *gin.Context) {
 	username := c.PostForm("username")
 	file, header, err := c.Request.FormFile("image")
@@ -32,12 +41,28 @@ func (controller *ProfileController) AddProfilePicturesControllers(c *gin.Contex
 	profileServices.AddProfilePictures(username, file, header)
 }
 
+// @Summary Get Pictures
+// @Description get list picture for one user
+// @Param username query string true "username"
+// @Tags Profile
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} object{code=string,message=string} "ok"
+// @Router /api/v1/profile/image [get]
 func (controller *ProfileController) GetProfilePicturesControllers(c *gin.Context) {
 	username := c.Query("username")
 	profileServices := services.InitProfileService(controller.DB, c)
 	profileServices.GetProfilePictures(username)
 }
 
+// @Summary Delete Picture
+// @Description delete picture for one user
+// @Param body body models.DeleteImageModel true "body"
+// @Tags Profile
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} object{code=string,message=string} "ok"
+// @Router /api/v1/profile/image [delete]
 func (controller *ProfileController) DeleteProfilePicturesControllers(c *gin.Context) {
 	body := models.DeleteImageModel{}
 	err := c.BindJSON(&body)

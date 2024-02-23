@@ -8,7 +8,7 @@ import (
 
 func ProfileRouters(router *gin.RouterGroup, controllers *controllers.ProfileController) {
 	group := router.Group("/profile")
+	group.GET("image", controllers.GetProfilePicturesControllers)
 	group.POST("image", controllers.AddProfilePicturesControllers)
-	group.GET("", controllers.GetProfilePicturesControllers)
 	group.DELETE("image", controllers.DeleteProfilePicturesControllers)
 }

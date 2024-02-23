@@ -1,0 +1,105 @@
+definitions:
+  models.DeleteImageModel:
+    properties:
+      filename:
+        example: images.png
+        type: string
+      username:
+        example: name
+        type: string
+    type: object
+info:
+  contact: {}
+  description: API for file sytem in profile pictures system
+  title: FS Pictures Service API
+  version: "1.0"
+paths:
+  /api/v1/profile/image:
+    delete:
+      consumes:
+      - application/json
+      description: delete picture for one user
+      parameters:
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.DeleteImageModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - type: object
+            - properties:
+                code:
+                  type: string
+                message:
+                  type: string
+              type: object
+      summary: Delete Picture
+      tags:
+      - Profile
+    get:
+      consumes:
+      - application/json
+      description: get list picture for one user
+      parameters:
+      - description: username
+        in: query
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - type: object
+            - properties:
+                code:
+                  type: string
+                message:
+                  type: string
+              type: object
+      summary: Get Pictures
+      tags:
+      - Profile
+    post:
+      consumes:
+      - application/json
+      description: add one picture for one user
+      parameters:
+      - description: username
+        in: formData
+        name: username
+        required: true
+        type: string
+      - description: image
+        in: formData
+        name: image
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - type: object
+            - properties:
+                code:
+                  type: string
+                message:
+                  type: string
+              type: object
+      summary: Add Pictures
+      tags:
+      - Profile
+swagger: "2.0"
